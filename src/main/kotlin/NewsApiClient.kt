@@ -5,12 +5,14 @@ import io.github.rybalkinsd.kohttp.ext.asString
 import io.github.rybalkinsd.kohttp.ext.url
 import okhttp3.Response
 
-class NewsApiClient {
+class NewsClient(private val client: NewsApiClient) {
     fun getNews(query: String = "news"): NewsApiResponse {
-        val responseBody = getRawNews(query).asString() ?: throw Exception("response not available")
+        val responseBody = client.getRawNews(query).bodyAsString()
         return jacksonObjectMapper().readValue(responseBody)
     }
+}
 
+class NewsApiClient {
     fun getRawNews(query: String = "news"): Response = httpGet {
         url("https://newsapi.org/v2/everything")
         param {
@@ -21,6 +23,8 @@ class NewsApiClient {
         }
     }
 }
+
+fun Response.bodyAsString() = asString() ?: throw Exception("response not available")
 
 data class NewsApiResponse(
     val status: String,

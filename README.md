@@ -1,5 +1,6 @@
 # Example project
 An example project for the backend class to play around and teaching basic usage of external APIs =) 
+it will creatze an html file in the project root depending in given search and filter terms
 
 ## How to build:
 
