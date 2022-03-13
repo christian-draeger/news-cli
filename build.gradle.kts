@@ -17,8 +17,9 @@ dependencies {
     implementation("com.github.ajalt.clikt:clikt:3.4.0")
     implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.7.3")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.1")
+    implementation("it.skrape:skrapeit:1.2.1")
     testImplementation(kotlin("test"))
-    testImplementation("io.strikt:strikt-core:0.34.0")
+    testImplementation("io.strikt:strikt-core:0.34.1")
     testImplementation("io.mockk:mockk:1.12.3")
 }
 

@@ -1,3 +1,4 @@
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import io.github.rybalkinsd.kohttp.dsl.httpGet
@@ -26,24 +27,24 @@ class NewsApiClient {
 
 fun Response.bodyAsString() = asString() ?: throw Exception("response not available")
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class NewsApiResponse(
     val status: String,
     val totalResults: Int,
     val articles: List<NewsApiArticle>
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class NewsApiArticle(
-    val author: String?,
     val title: String,
     val description: String,
     val url: String,
-    val urlToImage: String,
-    val publishedAt: String,
     val content: String,
-    val source: NewsApiArticleSource,
-)
-
-data class NewsApiArticleSource(
-    val id: String?,
-    val name: String,
-)
+) {
+    fun toArticle() = Article(
+        title = title,
+        description = description,
+        content = content,
+        source = url
+    )
+}
